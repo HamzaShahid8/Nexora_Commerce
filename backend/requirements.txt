@@ -1,0 +1,13 @@
+django
+djangorestframework
+psycopg2-binary
+djangorestframework-simplejwt
+pillow
+python-dotenv
+drf-spectacular
+drf-spectacular-sidecar
+drf-yasg
+celery
+redis
+django-filter
+stripe
