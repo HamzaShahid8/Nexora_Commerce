@@ -14,6 +14,7 @@ from pathlib import Path
 from datetime import timedelta
 import os
 from dotenv import load_dotenv
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -89,7 +90,7 @@ REST_FRAMEWORK = {
 
 SIMPLE_JWT = {
 
-'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
+'ACCESS_TOKEN_LIFETIME': timedelta(minutes=25),
 
 'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 
@@ -156,16 +157,12 @@ WSGI_APPLICATION = 'Ecommerce.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv('NAME'),
-        "USER": os.getenv('USER'),
-        "PASSWORD": os.getenv('PASSWORD'),
-        "HOST": "localhost",
-        "PORT": os.getenv('PORT'),
-    }
+    "default": dj_database_url.config(
+        default=os.getenv("DATABASE_URL"),
+        conn_max_age=0,
+        ssl_require=True,
+    )
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators

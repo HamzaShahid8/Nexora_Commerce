@@ -27,19 +27,24 @@ class User(AbstractUser, BaseModel):
     
     # access admin panel
     def save(self, *args, **kwargs):
-        # Superuser ko hamesha admin access rahe
-        if not self.is_superuser:
-            self.is_staff = bool(
-                self.role and self.role.access_admin_panel
-            )
+        
+        # automatic access admin panel based on role
+        if self.role and self.role.name.lower() == 'manager':
+            self.is_staff = True
             self.is_superuser = False
-
+            
+        else:
+            self.is_staff = False
+            self.is_superuser = False
+            
         super().save(*args, **kwargs)
-
-        # Role ko Django Group ke sath sync karo
+        
+        # sync role to django group
         if self.role:
             group, _ = Group.objects.get_or_create(name=self.role.name)
+            
             self.groups.set([group])
+            
         else:
             self.groups.clear()
 
