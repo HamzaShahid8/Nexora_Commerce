@@ -13,3 +13,7 @@ django-filter
 stripe
 django-environ
 dj-database-url
+whitenoise
+gunicorn
+django-cors-headers
+vercel
