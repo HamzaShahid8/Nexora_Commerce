@@ -48,7 +48,7 @@ class InvoiceViewSet(viewsets.ModelViewSet):
             InvoiceReadSerializer(invoice).data, status=200)
         
     def perform_update(self, serializer):
-        InvoiceService.update_invoice(
+        invoice = InvoiceService.update_invoice(
             serializer.instance,
             serializer.validated_data
         )
